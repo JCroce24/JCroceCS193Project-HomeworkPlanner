@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 public class Assignment implements Serializable {
     private String name;
@@ -66,6 +67,7 @@ public class Assignment implements Serializable {
         return Math.toIntExact(Math.round(returnValue));
     }
     public String toString() {
-        return String.format("%s - %s | Priority score: %d", this.name, this.dueDate.toString(), this.priorityScore);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
+        return String.format("%s - %s | Priority score: %d", this.name, this.dueDate.format(formatter), this.priorityScore);
     }
 }

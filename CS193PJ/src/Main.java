@@ -73,6 +73,10 @@ public class Main {
                             "November 16th, 2026 at 11:30PM = 11/16/26/23:30\n");
                     String[] dateArray = dateInput.split("/", 4);
 
+                    if (dateArray[1].length() == 1) {
+                        dateArray[1] = "0" + dateArray[1];
+                    }
+
                     try {
                         String dateFormatted = String.format("20%s-%s-%sT%s:00",
                                 dateArray[2], dateArray[0], dateArray[1], dateArray[3]);

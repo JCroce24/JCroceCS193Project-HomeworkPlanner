@@ -19,7 +19,7 @@ void main() {
             String nameInput = IO.readln("Input assignment name:\n");
 
             for (int i = 0; i < assignments.size(); i++) {
-                if (assignments.get(i).getName().equals(nameInput)) {
+                if (assignments.get(i).getName().equalsIgnoreCase(nameInput)) {
                     IO.println("Duplicate name\n");
                     continue MainLoop;
                 }
@@ -57,10 +57,16 @@ void main() {
             }
 
         } else if (userInput.equals("3")) {
-            String nameInput = IO.readln("Input the name of the assignment you want to delete:\n");
+            String nameInput = IO.readln("Input the name of the assignment you want to delete (input \"remove all\" to remove all):\n");
+
+            if (nameInput.equalsIgnoreCase("remove all")) {
+                assignments = new ArrayList<Assignment>();
+                IO.println("All Assignments Deleted");
+                continue MainLoop;
+            }
 
             for (int i = 0; i < assignments.size(); i++) {
-                if (assignments.get(i).getName().equals(nameInput)) {
+                if (assignments.get(i).getName().equalsIgnoreCase(nameInput)) {
                     assignments.remove(assignments.indexOf(assignments.get(i)));
                     IO.println("Assignment Deleted\n");
                     continue MainLoop;
@@ -81,9 +87,12 @@ void main() {
 // use a for loop and use i-- to go back when you compare somethign and the latter one
 // is larger so that it will keep going back if its ahead of the stuff before e
 ArrayList<Assignment> sort(ArrayList<Assignment> assignments) {
-    for (int i = 0; i < assignments.size() - 1; i++) {
+    int i = -1;
+    while (i < assignments.size() - 2) {
+        i++;
         if (assignments.get(i).getDueDate().isBefore(LocalDateTime.now())) {
             assignments.remove(i);
+            i--;
         }
 
         if (assignments.get(i).getPriority() < assignments.get(i+1).getPriority()) {
@@ -93,7 +102,7 @@ ArrayList<Assignment> sort(ArrayList<Assignment> assignments) {
             if (i > 0) {
                 i -= 2;
             }
-         }
+        }
     }
     return assignments;
 }

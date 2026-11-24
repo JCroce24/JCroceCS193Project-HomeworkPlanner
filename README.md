@@ -18,3 +18,5 @@ Chunked Build Plan:
 8. Create an interactable UI instead of just using the terminal (I don't know how to do this so it will take a long time)
 
 Future Plans: Create an application with a functioning UI that shows all assignments due in the near future and is constantly updating.
+
+Demo Video: https://youtu.be/Rcffux1iJ_E

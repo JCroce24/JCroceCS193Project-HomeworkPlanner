@@ -7,13 +7,11 @@ public class Assignment implements Serializable {
     private String name;
     private LocalDateTime dueDate;
     private int completionTime;
-    private int priorityScore;
 
     public Assignment(String name, LocalDateTime dueDate, int completionTime)  {
         this.name = name;
         this.dueDate = dueDate;
         this.completionTime = completionTime;
-        this.priorityScore = getPriority();
     }
 
     public Assignment(String name, String dueDate, int completionTime) throws Exception {
@@ -24,7 +22,6 @@ public class Assignment implements Serializable {
             throw new Exception("Could not parse dueDate String to LocalDateTime: " + e.getMessage());
         }
         this.completionTime = completionTime;
-        this.priorityScore = getPriority();
     }
 
     public String getName() {
@@ -63,11 +60,11 @@ public class Assignment implements Serializable {
         long minutesUntil = LocalDateTime.now().until(getDueDate(), ChronoUnit.MINUTES);
         double mu = (double) minutesUntil;
         double returnValue = (400000 / (mu + 160)) +
-                (5 * Math.sqrt((double) getCompletionTime()));
+                (10 * Math.sqrt((double) getCompletionTime()));
         return Math.toIntExact(Math.round(returnValue));
     }
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
-        return String.format("%s - %s | Priority score: %d", this.name, this.dueDate.format(formatter), this.priorityScore);
+        return String.format("%s - %s | Priority score: %d", this.name, this.dueDate.format(formatter), getPriority());
     }
 }
